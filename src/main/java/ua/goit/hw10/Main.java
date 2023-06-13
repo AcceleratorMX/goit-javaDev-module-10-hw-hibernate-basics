@@ -31,7 +31,7 @@ public class Main {
         clientCrudService.updateClient(updateClientById, 11);
         System.out.println("Change client name by id: " + clientCrudService.getById(11));
 
-        clientCrudService.deleteById(6);
+        clientCrudService.deleteById(7);
 
         List<Client> allClients = clientCrudService.getAllClients();
         System.out.println("All Clients:");

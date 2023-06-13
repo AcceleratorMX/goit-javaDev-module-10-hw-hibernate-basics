@@ -5,18 +5,18 @@ import java.io.IOException;
 import java.util.Properties;
 
 public class DatabaseInitService {
-    private static String url = "";
+    private static String databaseUrl = "";
 
     public String getProperties() {
         Properties properties = new Properties();
         try {
             ClassLoader classLoader = getClass().getClassLoader();
             properties.load(classLoader.getResourceAsStream("hibernate.properties"));
-            url = properties.getProperty("hibernate.connection.url");
+            databaseUrl = properties.getProperty("hibernate.connection.url");
         } catch (IOException e) {
             throw new RuntimeException("Failed to load database.", e);
         }
-        return url;
+        return databaseUrl;
     }
 
     public void initDB() {
