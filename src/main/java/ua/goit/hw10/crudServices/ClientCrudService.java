@@ -62,14 +62,11 @@ public class ClientCrudService {
                 session.remove(client);
                 transaction.commit();
                 System.out.println("Client with id " + id + " has been deleted.");
-            } else {
-                System.out.println("Client with id " + id + " does not exist.");
             }
         } catch (Exception e) {
             if (transaction != null) {
                 transaction.rollback();
             }
-            e.printStackTrace();
         }
     }
 

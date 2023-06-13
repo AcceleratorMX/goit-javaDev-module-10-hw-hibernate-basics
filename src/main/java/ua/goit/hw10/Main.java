@@ -2,9 +2,12 @@ package ua.goit.hw10;
 
 import ua.goit.hw10.crudServices.ClientCrudService;
 import ua.goit.hw10.crudServices.PlanetCrudService;
+import ua.goit.hw10.crudServices.TicketCrudService;
 import ua.goit.hw10.entity.Client;
 import ua.goit.hw10.entity.Planet;
+import ua.goit.hw10.entity.Ticket;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 public class Main {
@@ -28,7 +31,7 @@ public class Main {
         clientCrudService.updateClient(updateClientById, 11);
         System.out.println("Change client name by id: " + clientCrudService.getById(11));
 
-        clientCrudService.deleteById(11);
+//        clientCrudService.deleteById(11);
 
         List<Client> allClients = clientCrudService.getAllClients();
         System.out.println("All Clients:");
@@ -60,7 +63,33 @@ public class Main {
         for (Planet planet : allPlanets) {
             System.out.println(planet);
         }
+        System.out.println("\n");
 
-        hibernateUtil.close();
+        // Ticket
+        TicketCrudService ticketCrudService = new TicketCrudService(hibernateUtil);
+
+        Ticket ticket1 = new Ticket();
+        ticket1.setCreatedAt(LocalDateTime.now());
+        client1.setId(11);
+        ticket1.setClient(client1);
+        ticket1.setFromPlanet(planetCrudService.getById("ZEP")); // fromPlanet
+        ticket1.setToPlanet(planetCrudService.getById("SOL")); // toPlanet
+        ticketCrudService.addTicket(ticket1);
+        System.out.println("New ticket: " + ticket1);
+
+        System.out.println("Get ticket by id: " + ticketCrudService.getById(11));
+
+        Ticket updateTicketById = ticketCrudService.getById(11);
+        updateTicketById.setToPlanet(planetCrudService.getById("ELY"));
+        ticketCrudService.updateTicket(updateTicketById, 11);
+        System.out.println("Update ticket by id: " + ticketCrudService.getById(11));
+
+        ticketCrudService.deleteById(11);
+
+        List<Ticket> allTickets = ticketCrudService.getAllTickets();
+        System.out.println("All Tickets");
+        for (Ticket ticket : allTickets) {
+            System.out.println(ticket);
+        }
     }
 }

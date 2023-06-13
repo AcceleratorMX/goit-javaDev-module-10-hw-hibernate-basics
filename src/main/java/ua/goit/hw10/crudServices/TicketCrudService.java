@@ -4,23 +4,22 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import ua.goit.hw10.HibernateUtil;
-import ua.goit.hw10.entity.Planet;
-
+import ua.goit.hw10.entity.Ticket;
 
 import java.util.List;
 
-public class PlanetCrudService {
+public class TicketCrudService {
     private final SessionFactory sessionFactory;
 
-    public PlanetCrudService(HibernateUtil hibernateUtil) {
+    public TicketCrudService(HibernateUtil hibernateUtil) {
         sessionFactory = hibernateUtil.getSessionFactory();
-    }
 
-    public void addPlanet(Planet planet) {
+    }
+    public void addTicket(Ticket ticket) {
         Transaction transaction = null;
         try (Session session = sessionFactory.openSession()) {
             transaction = session.beginTransaction();
-            session.persist(planet);
+            session.persist(ticket);
             transaction.commit();
         } catch (Exception e) {
             if (transaction != null) {
@@ -30,21 +29,21 @@ public class PlanetCrudService {
         }
     }
 
-    public Planet getById(String id) {
-        try (Session session = sessionFactory.openSession()){
-            return session.get(Planet.class, id);
+    public Ticket getById(Integer id) {
+        try (Session session = sessionFactory.openSession()) {
+            return session.get(Ticket.class, id);
         } catch (Exception e) {
             e.printStackTrace();
             return null;
         }
     }
 
-    public void updatePlanet(Planet planet, String id) {
+    public void updateTicket(Ticket ticket, Integer id) {
         Transaction transaction = null;
         try (Session session = sessionFactory.openSession()) {
             transaction = session.beginTransaction();
-            planet.setId(id);
-            session.merge(planet);
+            ticket.setId(id);
+            session.merge(ticket);
             transaction.commit();
         } catch (Exception e) {
             if (transaction != null) {
@@ -53,15 +52,15 @@ public class PlanetCrudService {
         }
     }
 
-    public void deleteById(String id) {
+    public void deleteById(Integer id) {
         Transaction transaction = null;
         try (Session session = sessionFactory.openSession()) {
             transaction = session.beginTransaction();
-            Planet planet = session.get(Planet.class, id);
-            if (planet != null) {
-                session.remove(planet);
+            Ticket ticket = session.get(Ticket.class, id);
+            if (ticket != null) {
+                session.remove(ticket);
                 transaction.commit();
-                System.out.println("Planet with id " + id + " has been deleted.");
+                System.out.println("Ticket with id " + id + " has been deleted.");
             }
         } catch (Exception e) {
             if (transaction != null) {
@@ -71,12 +70,13 @@ public class PlanetCrudService {
         }
     }
 
-    public List<Planet> getAllPlanets() {
+    public List<Ticket> getAllTickets() {
         try (Session session = sessionFactory.openSession()) {
-            return session.createQuery("from Planet", Planet.class).list();
+            return session.createQuery("from Ticket", Ticket.class).list();
         } catch (Exception e) {
             e.printStackTrace();
             return null;
         }
     }
 }
+
