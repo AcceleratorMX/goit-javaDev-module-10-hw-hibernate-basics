@@ -54,7 +54,7 @@ public class Main {
         Planet updatePlanetById = planetCrudService.getById("URN");
         updatePlanetById.setName("Nibiru");
         planetCrudService.updatePlanet(updatePlanetById, "URN");
-        System.out.println("Change planet name by in: " + planetCrudService.getById("URN"));
+        System.out.println("Change planet name by id: " + planetCrudService.getById("URN"));
 
         planetCrudService.deleteById("URN");
 
